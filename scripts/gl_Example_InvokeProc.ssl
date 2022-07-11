@@ -1,0 +1,40 @@
+#include "InvokeProc.h"
+
+#define DEBUG_NAME "gl_Example_InvokeProc"
+#include "FormattedDebug.h"
+
+procedure call_me0 begin
+    debug("Called: call_me0");
+    return "call_me0 return result";
+end
+
+procedure call_me1(variable arg1) begin
+    debug1("Called: call_me1 with", arg1);
+    return "call_me1 return result";
+end
+
+procedure call_me2(variable arg1, variable arg2 = "default for arg2") begin
+    debug2("Called: call_me2 with", arg1, arg2);
+    return "call_me2 return result";
+end
+
+procedure start begin
+    setup_invoke_procs begin
+        register_invoke_proc call_me0;
+        register_invoke_proc call_me1(0);
+        register_invoke_proc call_me2(0, 0);
+    end
+
+    call_invoke_proc("call_me0");
+    call_invoke_proc1("call_me1", "arg1 value");
+    call_invoke_proc2("call_me2", "arg1 value", "arg2 value");
+
+    // Use proc1 to test default proc arguments.
+    // Does not seem to work.
+    // "Error during execution: Wrong number of args to procedure call_me2"
+    // call_invoke_proc1("call_me2", "arg1 value");
+
+    debug1("call_me0 result: ", invoke_proc("call_me0"));
+    debug1("call_me1 result: ", invoke_proc1("call_me1", 1));
+    debug1("call_me2 result: ", invoke_proc2("call_me2", 1, 2));
+end
