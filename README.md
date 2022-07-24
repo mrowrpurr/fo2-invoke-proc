@@ -1,2 +1,1 @@
-# fo2-invoke-proc
-Invoke Fallout 2 procedures by name
+> _This is more of a demonstration of a **pattern** than a useful tool, perhaps. Maybe. We'll see. Ignore for now..._
